@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  slplus-frontend-inventory:
+    restart: always
+    image: slplus/frontend-inventory:0.0.1
+    container_name: slplus-frontend-inventory
+    networks:
+      - slplus
+    environment:
+      - NODE_ENV=production
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        VAULT_TOKEN: ${VAULT_TOKEN}
+        VAULT_ADDR: ${VAULT_ADDRESS}
+    ports:
+      - '${PORT}:80'
+networks:
+  slplus:
+    external: true
